@@ -6,12 +6,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--favicon-->
-    <link rel="icon" href="{{ asset('backend') }}assets/images/favicon-32x32.png" type="image/png" />
+
+    <link rel="icon" href="{{ asset('backend/assets/images/favicon-32x32.png') }}" type="image/png" />
     <!--plugins-->
     <link href="{{ asset('backend/assets/plugins/vectormap/jquery-jvectormap-2.0.2.css') }}" rel="stylesheet" />
     <link href="{{ asset('backend/assets/plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />
     <link href="{{ asset('backend/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet" />
     <link href="{{ asset('backend/assets/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
+    <!-- dataTables CSS -->
+    <link href="{{ asset('backend/assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
+    <!-- dataTables CSS -->
     <!-- loader-->
     <link href="{{ asset('backend/assets/css/pace.min.css') }}" rel="stylesheet" />
     <script src="{{ asset('backend/assets/js/pace.min.js') }}"></script>
@@ -25,19 +29,19 @@
     <link rel="stylesheet" href="{{ asset('backend/assets/css/dark-theme.css') }}" />
     <link rel="stylesheet" href="{{ asset('backend/assets/css/semi-dark.css') }}" />
     <link rel="stylesheet" href="{{ asset('backend/assets/css/header-colors.css') }}" />
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 
-    <title>Rocker - Bootstrap 5 Admin Dashboard Template</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+    <title>Franco Admin</title>
 </head>
 
 <body>
     <!--wrapper-->
     <div class="wrapper">
         <!--sidebar wrapper -->
-        @include('admin.body.sidebar');
+        @include('admin.body.sidebar')
         <!--end sidebar wrapper -->
         <!--start header -->
-        @include('admin.body.header');
+        @include('admin.body.header')
         <!--end header -->
         <!--start page wrapper -->
         <div class="page-wrapper">
@@ -50,96 +54,9 @@
         <!--Start Back To Top Button-->
         <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
         <!--End Back To Top Button-->
-        @include('admin.body.footer');
+        @include('admin.body.footer')
     </div>
     <!--end wrapper-->
-
-    <!-- search modal -->
-    <div class="modal" id="SearchModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen-md-down">
-            <div class="modal-content">
-                <div class="modal-header gap-2">
-                    <div class="position-relative popup-search w-100">
-                        <input class="form-control form-control-lg ps-5 border border-3 border-primary" type="search"
-                            placeholder="Search">
-                        <span
-                            class="position-absolute top-50 search-show ms-3 translate-middle-y start-0 top-50 fs-4"><i
-                                class='bx bx-search'></i></span>
-                    </div>
-                    <button type="button" class="btn-close d-md-none" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="search-list">
-                        <p class="mb-1">Html Templates</p>
-                        <div class="list-group">
-                            <a href="javascript:;"
-                                class="list-group-item list-group-item-action active align-items-center d-flex gap-2 py-1"><i
-                                    class='bx bxl-angular fs-4'></i>Best Html Templates</a>
-                            <a href="javascript:;"
-                                class="list-group-item list-group-item-action align-items-center d-flex gap-2 py-1"><i
-                                    class='bx bxl-vuejs fs-4'></i>Html5 Templates</a>
-                            <a href="javascript:;"
-                                class="list-group-item list-group-item-action align-items-center d-flex gap-2 py-1"><i
-                                    class='bx bxl-magento fs-4'></i>Responsive Html5 Templates</a>
-                            <a href="javascript:;"
-                                class="list-group-item list-group-item-action align-items-center d-flex gap-2 py-1"><i
-                                    class='bx bxl-shopify fs-4'></i>eCommerce Html Templates</a>
-                        </div>
-                        <p class="mb-1 mt-3">Web Designe Company</p>
-                        <div class="list-group">
-                            <a href="javascript:;"
-                                class="list-group-item list-group-item-action align-items-center d-flex gap-2 py-1"><i
-                                    class='bx bxl-windows fs-4'></i>Best Html Templates</a>
-                            <a href="javascript:;"
-                                class="list-group-item list-group-item-action align-items-center d-flex gap-2 py-1"><i
-                                    class='bx bxl-dropbox fs-4'></i>Html5 Templates</a>
-                            <a href="javascript:;"
-                                class="list-group-item list-group-item-action align-items-center d-flex gap-2 py-1"><i
-                                    class='bx bxl-opera fs-4'></i>Responsive Html5 Templates</a>
-                            <a href="javascript:;"
-                                class="list-group-item list-group-item-action align-items-center d-flex gap-2 py-1"><i
-                                    class='bx bxl-wordpress fs-4'></i>eCommerce Html Templates</a>
-                        </div>
-                        <p class="mb-1 mt-3">Software Development</p>
-                        <div class="list-group">
-                            <a href="javascript:;"
-                                class="list-group-item list-group-item-action align-items-center d-flex gap-2 py-1"><i
-                                    class='bx bxl-mailchimp fs-4'></i>Best Html Templates</a>
-                            <a href="javascript:;"
-                                class="list-group-item list-group-item-action align-items-center d-flex gap-2 py-1"><i
-                                    class='bx bxl-zoom fs-4'></i>Html5 Templates</a>
-                            <a href="javascript:;"
-                                class="list-group-item list-group-item-action align-items-center d-flex gap-2 py-1"><i
-                                    class='bx bxl-sass fs-4'></i>Responsive Html5 Templates</a>
-                            <a href="javascript:;"
-                                class="list-group-item list-group-item-action align-items-center d-flex gap-2 py-1"><i
-                                    class='bx bxl-vk fs-4'></i>eCommerce Html Templates</a>
-                        </div>
-                        <p class="mb-1 mt-3">Online Shoping Portals</p>
-                        <div class="list-group">
-                            <a href="javascript:;"
-                                class="list-group-item list-group-item-action align-items-center d-flex gap-2 py-1"><i
-                                    class='bx bxl-slack fs-4'></i>Best Html Templates</a>
-                            <a href="javascript:;"
-                                class="list-group-item list-group-item-action align-items-center d-flex gap-2 py-1"><i
-                                    class='bx bxl-skype fs-4'></i>Html5 Templates</a>
-                            <a href="javascript:;"
-                                class="list-group-item list-group-item-action align-items-center d-flex gap-2 py-1"><i
-                                    class='bx bxl-twitter fs-4'></i>Responsive Html5 Templates</a>
-                            <a href="javascript:;"
-                                class="list-group-item list-group-item-action align-items-center d-flex gap-2 py-1"><i
-                                    class='bx bxl-vimeo fs-4'></i>eCommerce Html Templates</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end search modal -->
-
-
-
     <!-- Bootstrap JS -->
     <script src="{{ asset('backend/assets/js/bootstrap.bundle.min.js') }}"></script>
     <!--plugins-->
@@ -156,9 +73,12 @@
     <script>
         new PerfectScrollbar(".app-container")
     </script>
+
+    <!-----sweet alert cdn link------>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="{{ asset('backend/assets/js/code.js') }}"></script>
-    <script src="{{ asset('backend/assets/js/validate.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/validate.min.js') }}"></script>
+
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>
@@ -184,6 +104,63 @@
         @endif
     </script>
 
+    <!--datatable JS-->
+    <script src="{{ asset('backend/assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        });
+    </script>
+    <!--datatable JS-->
+    <div>
+        <script src="https://cdn.tiny.cloud/1/ejsb5wgkm6l4kldbdwbidlumoudrnsedptcj1ax5k3wejkyx/tinymce/6/tinymce.min.js"
+            referrerpolicy="origin"></script>
+        <script>
+            tinymce.init({
+                selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE
+                plugins: 'code table lists',
+                toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
+            });
+        </script>
+        <!-- Happiness is not something readymade. It comes from your own actions. - Dalai Lama -->
+    </div>
+
+
+    <!-----sweet alert------>
+
+
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('click', '#delete', function(e) {
+                e.preventDefault();
+                var link = $(this).attr("href");
+
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Delete This Data?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
+
+
+            });
+
+        });
+    </script>
 </body>
 
 </html>
