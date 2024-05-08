@@ -83,7 +83,7 @@
     <!-- Services Area Three End -->
 
     <!-- Team Area Three -->
-    {{-- @include('frontend.home.team') --}}
+    @include('frontend.home.team')
     <!-- Team Area Three End -->
 
     <!-- Testimonials Area Three -->

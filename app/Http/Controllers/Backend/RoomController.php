@@ -41,7 +41,6 @@ class RoomController extends Controller
         $room->short_desc = $request->short_desc;
         $room->description = $request->description;
         $room->status = 1;
-        /// Update Single Image
 
         if ($request->file('image')) {
 
@@ -73,10 +72,8 @@ class RoomController extends Controller
                 $fcount->rooms_id = $room->id;
                 $fcount->facility_name = $request->facility_name[$i];
                 $fcount->save();
-            } // end for
-        } // end else
-
-        //// Update Multi Image
+            }
+        }
 
         if ($room->save()) {
             $files = $request->multi_img;
@@ -107,7 +104,7 @@ class RoomController extends Controller
 
         return redirect()->back()->with($notification);
 
-    }//End Method
+    }
 
     public function MultiImageDelete($id)
     {
@@ -139,7 +136,7 @@ class RoomController extends Controller
 
         return redirect()->back()->with($notification);
 
-    }//End Method
+    }
 
     public function StoreRoomNumber(Request $request, $id)
     {
@@ -158,7 +155,7 @@ class RoomController extends Controller
 
         return redirect()->back()->with($notification);
 
-    }//End Method
+    }
 
     public function EditRoomNumber($id)
     {
@@ -167,7 +164,7 @@ class RoomController extends Controller
 
         return view('admin.backend.allroom.rooms.edit_room_no', compact('editroomno'));
 
-    }//End Method
+    }
 
     public function UpdateRoomNumber(Request $request, $id)
     {
@@ -184,7 +181,7 @@ class RoomController extends Controller
 
         return redirect()->route('room.type.list')->with($notification);
 
-    }//End Method
+    }
 
     public function DeleteRoomNumber($id)
     {
@@ -198,7 +195,7 @@ class RoomController extends Controller
 
         return redirect()->route('room.type.list')->with($notification);
 
-    }//End Method
+    }
 
     public function DeleteRoom(Request $request, $id)
     {
@@ -230,6 +227,5 @@ class RoomController extends Controller
 
         return redirect()->back()->with($notification);
 
-    }//End Method
-
+    }
 }
