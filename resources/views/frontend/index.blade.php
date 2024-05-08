@@ -71,7 +71,7 @@
     <!-- Banner Form Area End -->
 
     <!-- Room Area -->
-    {{-- @include('frontend.home.room_area') --}}
+    @include('frontend.home.room_area')
     <!-- Room Area End -->
 
     <!-- Book Area Two-->
