@@ -75,7 +75,7 @@
     <!-- Room Area End -->
 
     <!-- Book Area Two-->
-    {{-- @include('frontend.home.room_area_two') --}}
+    @include('frontend.home.room_area_two')
     <!-- Book Area Two End -->
 
     <!-- Services Area Three -->
