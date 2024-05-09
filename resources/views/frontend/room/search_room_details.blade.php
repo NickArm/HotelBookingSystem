@@ -348,6 +348,7 @@
 
     <script>
         $(document).ready(function() {
+
             var check_in = "{{ old('check_in') }}";
             var check_out = "{{ old('check_out') }}";
             var room_id = "{{ $room_id }}";
@@ -380,6 +381,7 @@
 
 
         function getAvaility(check_in, check_out, room_id) {
+            console.log(check_in);
             $.ajax({
                 url: "{{ route('check_room_availability') }}",
                 data: {
@@ -392,6 +394,7 @@
                         'available_room'] + ' Rooms</span>');
                     $("#available_room").val(data['available_room']);
                     price_calculate(data['total_nights']);
+
                 }
             });
         }
@@ -408,6 +411,7 @@
             $(".t_subtotal").text(sub_total);
             $(".t_discount").text(discount_price);
             $(".t_g_total").text(sub_total - discount_price);
+
 
         }
 
