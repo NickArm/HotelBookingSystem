@@ -54,24 +54,24 @@
                             </a>
 
                         </li>
-                        {{-- @php
+                        @php
                             $room = App\Models\Room::latest()->get();
-                        @endphp --}}
+                        @endphp
                         <li class="nav-item">
-                            {{-- <a href="{{ route('froom.all') }}" class="nav-link"> --}}
-                            All Rooms
-                            <i class='bx bx-chevron-down'></i>
+                            <a href="{{ route('froom.all') }}" class="nav-link">
+                                All Rooms
+                                <i class='bx bx-chevron-down'></i>
                             </a>
-                            {{-- <ul class="dropdown-menu">
+                            <ul class="dropdown-menu">
                                 @foreach ($room as $item)
                                     <li class="nav-item">
-                                        <a href="room.html" class="nav-link">
+                                        <a href="{{ route('room.details', $item->id) }}" class="nav-link">
                                             {{ $item['type']['name'] }}
                                         </a>
                                     </li>
                                 @endforeach
 
-                            </ul> --}}
+                            </ul>
                         </li>
 
                         <li class="nav-item">
