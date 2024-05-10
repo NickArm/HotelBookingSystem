@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->integer('rooms_id')->nullable();
+            $table->integer('room_id')->nullable();
             $table->integer('user_id')->nullable();
             $table->string('check_in')->nullable();
             $table->string('check_out')->nullable();
             $table->string('persion')->nullable();
             $table->string('number_of_rooms')->nullable();
 
-            $table->float('total_night')->default(0);
+            $table->float('total_nights')->default(0);
             $table->float('actual_price')->default(0);
             $table->float('subtotal')->default(0);
             $table->integer('discount')->default(0);

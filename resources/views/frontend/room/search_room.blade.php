@@ -31,7 +31,7 @@
                     @php
                         $bookings = App\Models\Booking::withCount('assign_rooms')
                             ->whereIn('id', $check_date_booking_ids)
-                            ->where('rooms_id', $item->id)
+                            ->where('room_id', $item->id)
                             ->get()
                             ->toArray();
 
@@ -40,9 +40,6 @@
                         $av_room = @$item->room_numbers_count - $total_book_room;
 
                     @endphp
-
-
-
                     @if ($av_room > 0 && old('persion') <= $item->total_adult)
                         <div class="col-lg-4 col-md-6">
                             <div class="room-card">

@@ -94,7 +94,7 @@ class FrontendRoomController extends Controller
 
         $room = Room::withCount('room_numbers')->find($request->room_id);
 
-        $bookings = Booking::withCount('assign_rooms')->whereIn('id', $check_date_booking_ids)->where('rooms_id', $room->id)->get()->toArray();
+        $bookings = Booking::withCount('assign_rooms')->whereIn('id', $check_date_booking_ids)->where('room_id', $room->id)->get()->toArray();
 
         $total_book_room = array_sum(array_column($bookings, 'assign_rooms_count'));
 
