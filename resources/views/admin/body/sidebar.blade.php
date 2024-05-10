@@ -61,7 +61,7 @@
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class='bx bx-cart'></i>
                 </div>
-                <div class="menu-title">Booking</div>
+                <div class="menu-title">Manage Bookings</div>
             </a>
             <ul>
                 <li> <a href="{{ route('booking.list') }}"><i class='bx bx-radio-circle'></i>Booking List</a>
@@ -74,30 +74,24 @@
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
                 </div>
-                <div class="menu-title">Components</div>
+                <div class="menu-title">Manage Rooms</div>
             </a>
             <ul>
-                <li> <a href="component-alerts.html"><i class='bx bx-radio-circle'></i>Alerts</a>
+                <li> <a href="{{ route('view.room.list') }}"><i class='bx bx-radio-circle'></i>Room List</a>
                 </li>
-                <li> <a href="component-accordions.html"><i class='bx bx-radio-circle'></i>Accordions</a>
-                </li>
-                <li> <a href="component-badges.html"><i class='bx bx-radio-circle'></i>Badges</a>
-                </li>
-
+            </ul>
         </li>
-    </ul>
-    </li>
 
 
-    <li class="menu-label">Others</li>
+        <li class="menu-label">Others</li>
 
-    <li>
-        <a href="https://themeforest.net/user/codervent" target="_blank">
-            <div class="parent-icon"><i class="bx bx-support"></i>
-            </div>
-            <div class="menu-title">Support</div>
-        </a>
-    </li>
+        <li>
+            <a href="https://themeforest.net/user/codervent" target="_blank">
+                <div class="parent-icon"><i class="bx bx-support"></i>
+                </div>
+                <div class="menu-title">Support</div>
+            </a>
+        </li>
     </ul>
     <!--end navigation-->
 </div>
