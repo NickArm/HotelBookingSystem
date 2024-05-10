@@ -48,11 +48,11 @@ A comprehensive Hotel Booking Reservation System, designed from A-Z, offering se
 ## Features
 
 * Build Complete Hotel Booking Reservation System Project A-Z
-* User Role Management https://github.com/NickArm/HotelBookingSystem/commit/dd7e8eec6e4f1fc8ec2d7dbddf76227eed7605a1 
-* Multi-Authentication as User-Admin https://github.com/NickArm/HotelBookingSystem/commit/dd7e8eec6e4f1fc8ec2d7dbddf76227eed7605a1
-* User Roles and Permission https://github.com/NickArm/HotelBookingSystem/commit/dd7e8eec6e4f1fc8ec2d7dbddf76227eed7605a1
-* Checkout Process without Shipping Package
-* Multiple Payment Method Like COD and Stripe
+* User Role Management - https://github.com/NickArm/HotelBookingSystem/commit/dd7e8eec6e4f1fc8ec2d7dbddf76227eed7605a1 
+* Multi-Authentication as User-Admin - https://github.com/NickArm/HotelBookingSystem/commit/dd7e8eec6e4f1fc8ec2d7dbddf76227eed7605a1
+* User Roles and Permission - https://github.com/NickArm/HotelBookingSystem/commit/dd7e8eec6e4f1fc8ec2d7dbddf76227eed7605a1
+* Checkout & Payments & Pay on Arrivel Method - https://github.com/NickArm/HotelBookingSystem/commit/0b65c8f0fc1be842f9c051c237225e30ac96f876
+* Stripe Payment Method - https://github.com/NickArm/HotelBookingSystem/commit/f4b02984f46b8868eb1afdd60f81b97008d2e55c
 * Manage Room Inventory
 * Manual Booking and Online Booking System
 * Booking Notification with Real Time
@@ -70,7 +70,7 @@ A comprehensive Hotel Booking Reservation System, designed from A-Z, offering se
 * Dynamic Email Configuration
 * Adding Professional Theme for Backend
 * Adding Professional Theme for Frontend
-* Change Password Option
+* iCal Feature
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
