@@ -97,7 +97,6 @@ class FrontendRoomController extends Controller
         $bookings = Booking::withCount('assign_rooms')->whereIn('id', $check_date_booking_ids)->where('room_id', $room->id)->get()->toArray();
 
         $total_book_room = array_sum(array_column($bookings, 'assign_rooms_count'));
-
         $av_room = @$room->room_numbers_count - $total_book_room;
 
         $toDate = Carbon::parse($request->check_in);
@@ -105,5 +104,5 @@ class FrontendRoomController extends Controller
         $nights = $toDate->diffInDays($fromDate);
 
         return response()->json(['available_room' => $av_room, 'total_nights' => $nights]);
-    }
+    }//
 }
