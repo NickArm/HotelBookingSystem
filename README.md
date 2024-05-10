@@ -65,7 +65,7 @@ A comprehensive Hotel Booking Reservation System, designed from A-Z, offering se
 * Search Room Reservation by Date
 * Generate Booking Invoice in PDF
 * Custom Booking Mailing System
-* Multiple Image Upload System
+* Multiple Image Upload System - https://github.com/NickArm/HotelBookingSystem/commit/d8be9f93f421515783e79b2faa2e08759cfd99a9
 * Create Custom Pagination
 * Dynamic Email Configuration
 * Adding Professional Theme for Backend
