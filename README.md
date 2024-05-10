@@ -83,6 +83,19 @@ A comprehensive Hotel Booking Reservation System, designed from A-Z, offering se
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
+### Demo Live Project
+  * https://simplehotel.letsrock.gr/
+
+  * Admin Login
+   https://simplehotel.letsrock.gr/admin/login
+   Username: armenisnick@gmail.com
+   Password: admin!pass
+
+  * User Login
+   https://simplehotel.letsrock.gr/admin/login
+   Username: user@gmail.com
+   Password: user!pass
+
 
 <!-- GETTING STARTED -->
 ## Getting Started
