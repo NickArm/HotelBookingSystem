@@ -11,6 +11,7 @@ use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Stripe;
 
 class BookingController extends Controller
 {
@@ -95,6 +96,32 @@ class BookingController extends Controller
         $total_price = $subtotal - $discount;
         $code = rand(00000000, 999999999);
 
+        if ($request->payment_method == 'Stripe') {
+            Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+            $s_pay = Stripe\Charge::create([
+                'amount' => $total_price * 100,
+                'currency' => 'eur',
+                'source' => $request->stripeToken,
+                'description' => 'Payment for Booking. Booking No '.$code,
+            ]);
+
+            if ($s_pay['status'] == 'succeeded') {
+                $payment_status = 1;
+                $trasation_id = $s_pay->id;
+            } else {
+                $notification = [
+                    'message' => 'Sorry Payment Failed',
+                    'alert-type' => 'error',
+                ];
+
+                return redirect('/')->with($notification);
+            }
+        } else {
+            $payment_Status = 0;
+            $trasation_id = ' ';
+
+        }
+
         //store the data @Booking
         $data = new Booking();
         $data->room_id = $room->id;
@@ -109,7 +136,7 @@ class BookingController extends Controller
         $data->discount = $discount;
         $data->total_price = $total_price;
         $data->payment_method = $request->payment_method;
-        $data->transation_id = ' ';
+        $data->transation_id = $trasation_id;
         $data->payment_status = 0;
         $data->name = $request->name;
         $data->email = $request->email;
