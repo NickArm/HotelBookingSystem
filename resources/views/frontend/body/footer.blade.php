@@ -1,6 +1,6 @@
-{{-- @php
+@php
     $setting = App\Models\SiteSetting::find(1);
-@endphp --}}
+@endphp
 
 <footer class="footer-area footer-bg">
     <div class="container">
@@ -10,7 +10,7 @@
                     <div class="footer-widget">
                         <div class="footer-logo">
                             <a href="index.html">
-                                {{-- <img src="{{ asset($setting->logo) }}" alt="Images"> --}}
+                                <img src="{{ asset($setting->logo) }}" alt="Images">
                             </a>
                         </div>
                         <p>
@@ -20,15 +20,15 @@
                         <ul class="footer-list-contact">
                             <li>
                                 <i class='bx bx-home-alt'></i>
-                                {{-- <a href="#">{{ $setting->address }}</a> --}}
+                                <a href="#">{{ $setting->address }}</a>
                             </li>
                             <li>
                                 <i class='bx bx-phone-call'></i>
-                                {{-- <a href="tel:{{ $setting->phone }}">{{ $setting->phone }}</a> --}}
+                                <a href="tel:{{ $setting->phone }}">{{ $setting->phone }}</a>
                             </li>
                             <li>
                                 <i class='bx bx-envelope'></i>
-                                {{-- <a href="mailto:{{ $setting->email }}">{{ $setting->email }}</a> --}}
+                                <a href="mailto:{{ $setting->email }}">{{ $setting->email }}</a>
                             </li>
                         </ul>
                     </div>
@@ -158,7 +158,7 @@
                 <div class="col-lg-8 col-md-8">
                     <div class="copy-right-text text-align1">
                         <p>
-                            {{-- {{ $setting->copyright }} --}}
+                            {{ $setting->copyright }}
                         </p>
                     </div>
                 </div>
@@ -167,10 +167,10 @@
                     <div class="social-icon text-align2">
                         <ul class="social-link">
                             <li>
-                                {{-- <a href="{{ $setting->facebook }}" target="_blank"><i class='bx bxl-facebook'></i></a> --}}
+                                <a href="{{ $setting->facebook }}" target="_blank"><i class='bx bxl-facebook'></i></a>
                             </li>
                             <li>
-                                {{-- <a href="{{ $setting->twitter }}" target="_blank"><i class='bx bxl-twitter'></i></a> --}}
+                                <a href="{{ $setting->twitter }}" target="_blank"><i class='bx bxl-twitter'></i></a>
                             </li>
                             <li>
                                 <a href="#" target="_blank"><i class='bx bxl-instagram'></i></a>

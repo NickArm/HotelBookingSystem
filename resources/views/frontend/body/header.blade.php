@@ -1,6 +1,6 @@
-{{-- @php
+@php
     $setting = App\Models\SiteSetting::find(1);
-@endphp --}}
+@endphp
 
 <header class="top-header top-header-bg">
     <div class="container">
@@ -22,11 +22,11 @@
                     <ul>
                         <li>
                             <i class='bx bx-home-alt'></i>
-                            {{-- <a href="#">{{ $setting->address }}</a> --}}
+                            <a href="#">{{ $setting->address }}</a>
                         </li>
                         <li>
                             <i class='bx bx-phone-call'></i>
-                            {{-- <a href="tel:{{ $setting->phone }}">{{ $setting->phone }}</a> --}}
+                            <a href="tel:{{ $setting->phone }}">{{ $setting->phone }}</a>
                         </li>
 
                         @auth
