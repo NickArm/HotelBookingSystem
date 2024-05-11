@@ -54,7 +54,7 @@ A comprehensive Hotel Booking Reservation System, designed from A-Z, offering se
 * Checkout & Payments & Pay on Arrivel Method - https://github.com/NickArm/HotelBookingSystem/commit/0b65c8f0fc1be842f9c051c237225e30ac96f876
 * Stripe Payment Method - https://github.com/NickArm/HotelBookingSystem/commit/f4b02984f46b8868eb1afdd60f81b97008d2e55c
 * Manage Room Inventory
-* Manual Booking and Online Booking System
+* Manual Booking and Online Booking System - https://github.com/NickArm/HotelBookingSystem/commit/cf2e4bde8314ff3d3cf679abbaace2cc88fb95ac
 * Booking Notification with Real Time
 * Manage Reservation Inventory
 * Import and Export From Excel File
@@ -63,7 +63,7 @@ A comprehensive Hotel Booking Reservation System, designed from A-Z, offering se
 * Online Booking Reservation
 * Room Availability Management
 * Search Room Reservation by Date
-* Generate Booking Invoice in PDF
+* Generate Booking Invoice in PDF - https://github.com/NickArm/HotelBookingSystem/commit/587028147606c96a3e065dfdc22381c21d5a1a08
 * Custom Booking Mailing System
 * Multiple Image Upload System - https://github.com/NickArm/HotelBookingSystem/commit/d8be9f93f421515783e79b2faa2e08759cfd99a9
 * Create Custom Pagination

@@ -107,6 +107,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/assign_room/store/{booking_id}/{room_number_id}', 'AssignRoomStore')->name('assign_room_store');
         Route::get('/assign_room_delete/{id}', 'AssignRoomDelete')->name('assign_room_delete');
         Route::get('/download/invoice/{id}', 'DownloadInvoice')->name('download.invoice');
+
+        Route::get('/user/booking', 'UserBooking')->name('user.booking');
+        Route::get('/user/invoice/{id}', 'UserInvoice')->name('user.invoice');
     });
 
     Route::controller(RoomListController::class)->group(function () {
