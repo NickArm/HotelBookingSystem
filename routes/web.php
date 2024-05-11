@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\CommentController;
+use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\RoomController;
 use App\Http\Controllers\Backend\RoomListController;
 use App\Http\Controllers\Backend\RoomTypeController;
@@ -153,6 +154,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit/blog/post/{id}', 'EditBlogPost')->name('edit.blog.post');
         Route::post('/update/blog/post', 'UpdateBlogPost')->name('update.blog.post');
         Route::get('/delete/blog/post/{id}', 'DeleteBlogPost')->name('delete.blog.post');
+    });
+
+    Route::controller(ReportController::class)->group(function () {
+        Route::get('/booking/report/', 'BookingReport')->name('booking.report');
+        Route::post('/search-by-date', 'SearchByDate')->name('search-by-date');
+
     });
 
 });
