@@ -114,7 +114,7 @@
     </script>
     <!--datatable JS-->
     <div>
-        <script src="https://cdn.tiny.cloud/1/ejsb5wgkm6l4kldbdwbidlumoudrnsedptcj1ax5k3wejkyx/tinymce/6/tinymce.min.js"
+        <script src="https://cdn.tiny.cloud/1/sl9j3mwttgt049sgbf8rmzuc2newkr802z2g3sg9entajdbw/tinymce/6/tinymce.min.js"
             referrerpolicy="origin"></script>
         <script>
             tinymce.init({
