@@ -87,7 +87,7 @@
     <!-- Team Area Three End -->
 
     <!-- Testimonials Area Three -->
-    {{-- @include('frontend.home.testimonials') --}}
+    @include('frontend.home.testimonials')
     <!-- Testimonials Area Three End -->
 
     <!-- FAQ Area -->
