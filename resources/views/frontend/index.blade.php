@@ -95,6 +95,6 @@
     <!-- FAQ Area End -->
 
     <!-- Blog Area -->
-    {{-- @include('frontend.home.blog') --}}
+    @include('frontend.home.blog')
     <!-- Blog Area End -->
 @endsection
