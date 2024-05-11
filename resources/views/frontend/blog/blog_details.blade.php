@@ -48,9 +48,12 @@
                                 {!! $blog->long_descp !!}
                             </p>
                         </div>
-                        {{-- @php
-    $comment = App\Models\Comment::where('post_id',$blog->id)->where('status','1')->limit(5)->get();
-@endphp
+                        @php
+                            $comment = App\Models\Comment::where('post_id', $blog->id)
+                                ->where('status', '1')
+                                ->limit(5)
+                                ->get();
+                        @endphp
                         <div class="comments-wrap">
                             <h3 class="title">Comments</h3>
                             <ul>
@@ -68,9 +71,9 @@
                                 @endforeach
 
                             </ul>
-                        </div> --}}
+                        </div>
 
-                        {{-- <div class="comments-form">
+                        <div class="comments-form">
                             <div class="contact-form">
 
                                 <h2>Leave A Comment</h2>
@@ -116,7 +119,7 @@
 
                                 @endauth
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
 

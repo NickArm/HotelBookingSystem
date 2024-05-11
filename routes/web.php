@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\BlogController;
+use App\Http\Controllers\Backend\CommentController;
 use App\Http\Controllers\Backend\RoomController;
 use App\Http\Controllers\Backend\RoomListController;
 use App\Http\Controllers\Backend\RoomTypeController;
@@ -162,4 +163,13 @@ Route::controller(BlogController::class)->group(function () {
     Route::get('/blog/cat/list/{id}', 'BlogCatList');
     Route::get('/blog', 'BlogList')->name('blog.list');
 
+});
+
+Route::controller(CommentController::class)->group(function () {
+
+    Route::post('/store/comment/', 'StoreComment')->name('store.comment');
+    Route::get('/all/comment/', 'AllComment')->name('all.comment');
+
+    Route::get('/all/comment/', 'AllComment')->name('all.comment');
+    Route::post('/update/comment/status', 'UpdateCommentStatus')->name('update.comment.status');
 });
