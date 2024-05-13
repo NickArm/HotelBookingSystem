@@ -174,6 +174,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/delete/gallery/{id}', 'DeleteGallery')->name('delete.gallery');
         Route::post('/delete/gallery/multiple', 'DeleteGalleryMultiple')->name('delete.gallery.multiple');
         Route::get('/gallery', 'ShowGallery')->name('show.gallery');
+
+        Route::get('/contact', 'ContactUs')->name('contact.us');
+        Route::post('/store/contact', 'StoreContactUs')->name('store.contact');
+        Route::get('/contact/message', 'AdminContactMessage')->name('contact.message');
     });
 
 });
