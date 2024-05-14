@@ -19,11 +19,11 @@
                 </div>
 
                 <div class="btn-group">
-                    {{-- <a href="{{ route('import.permission') }}" class="btn btn-warning px-5">Import </a>   --}}
+                    <a href="{{ route('import.permission') }}" class="btn btn-warning px-5">Import </a>
                 </div>
 
                 <div class="btn-group">
-                    {{-- <a href="{{ route('export') }}" class="btn btn-danger px-5">Export </a> --}}
+                    <a href="{{ route('export') }}" class="btn btn-danger px-5">Export </a>
                 </div>
             </div>
         </div>
