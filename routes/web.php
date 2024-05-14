@@ -116,6 +116,8 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/user/booking', 'UserBooking')->name('user.booking');
         Route::get('/user/invoice/{id}', 'UserInvoice')->name('user.invoice');
+
+        Route::post('/mark-notification-as-read/{notification}', 'MarkAsRead');
     });
 
     Route::controller(RoomListController::class)->group(function () {

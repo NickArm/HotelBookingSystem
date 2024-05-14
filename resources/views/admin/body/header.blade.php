@@ -30,11 +30,11 @@
                     <li class="nav-item dropdown dropdown-large">
                         <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#"
                             data-bs-toggle="dropdown">
-                            {{-- @php
+                            @php
                                 $ncount = Auth::user()->unreadNotifications()->count();
-                            @endphp --}}
-                            {{-- <span class="alert-count" id="notification-count">{{ $ncount }}</span>
-                            <i class='bx bx-bell'></i> --}}
+                            @endphp
+                            <span class="alert-count" id="notification-count">{{ $ncount }}</span>
+                            <i class='bx bx-bell'></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a href="javascript:;">
@@ -45,7 +45,7 @@
                             </a>
                             <div class="header-notifications-list">
 
-                                {{-- @php
+                                @php
                                     $user = Auth::user();
                                 @endphp
 
@@ -66,7 +66,7 @@
                                         </div>
                                     </a>
                                 @empty
-                                @endforelse --}}
+                                @endforelse
 
 
                             </div>

@@ -9,12 +9,15 @@ use App\Models\BookingRoomList;
 use App\Models\Room;
 use App\Models\RoomBookDate;
 use App\Models\RoomNumber;
+use App\Models\User;
+use App\Notifications\BookingComplete;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
 use Stripe;
 
@@ -79,6 +82,7 @@ class BookingController extends Controller
 
     public function CheckoutStore(Request $request)
     {
+        $user = User::where('role', 'admin')->get();
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required',
@@ -174,6 +178,8 @@ class BookingController extends Controller
             'message' => 'Your Booking Added Successfully',
             'alert-type' => 'success',
         ];
+
+        Notification::send($user, new BookingComplete($request->name));
 
         return redirect('/')->with($notification);
     }
@@ -364,5 +370,19 @@ class BookingController extends Controller
 
         return $pdf->download('invoice.pdf');
 
-    }// End Method
+    }
+
+    public function MarkAsRead(Request $request, $notificationId)
+    {
+
+        $user = Auth::user();
+        $notification = $user->notifications()->where('id', $notificationId)->first();
+
+        if ($notification) {
+            $notification->markAsRead();
+        }
+
+        return response()->json(['count' => $user->unreadNotifications()->count()]);
+
+    }
 }
