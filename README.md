@@ -48,16 +48,16 @@ A comprehensive Hotel Booking Reservation System, designed from A-Z, offering se
 ## Features
 
 * Build Complete Hotel Booking Reservation System Project A-Z
-* User Role Management - https://github.com/NickArm/HotelBookingSystem/commit/dd7e8eec6e4f1fc8ec2d7dbddf76227eed7605a1 
+* User Role Management - https://github.com/NickArm/HotelBookingSystem/commit/1e20fea2800f2c44fc1c3dd1ec5c22b67849da56
 * Multi-Authentication as User-Admin - https://github.com/NickArm/HotelBookingSystem/commit/dd7e8eec6e4f1fc8ec2d7dbddf76227eed7605a1
 * User Roles and Permission - https://github.com/NickArm/HotelBookingSystem/commit/dd7e8eec6e4f1fc8ec2d7dbddf76227eed7605a1
 * Checkout & Payments & Pay on Arrivel Method - https://github.com/NickArm/HotelBookingSystem/commit/0b65c8f0fc1be842f9c051c237225e30ac96f876
 * Stripe Payment Method - https://github.com/NickArm/HotelBookingSystem/commit/f4b02984f46b8868eb1afdd60f81b97008d2e55c
 * Manage Room Inventory
 * Manual Booking and Online Booking System - https://github.com/NickArm/HotelBookingSystem/commit/cf2e4bde8314ff3d3cf679abbaace2cc88fb95ac
-* Booking Notification with Real Time
+* Booking Notification with Real Time - https://github.com/NickArm/HotelBookingSystem/commit/916dcf9f3740d108838b4f28e3a6028d83dffe43
 * Manage Reservation Inventory
-* Import and Export From Excel File
+* Import and Export From Excel File - https://github.com/NickArm/HotelBookingSystem/commit/b05a1406d4ef51eaa128bf30ff60ce7bffd0a2a7
 * Booking Report System
 * Advance Room Search Option
 * Online Booking Reservation

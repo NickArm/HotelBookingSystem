@@ -38,8 +38,8 @@
     <!-- toastr CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
     <!-- toastr CSS -->
-
-    <title>Easy Hotel </title>
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/custom.css') }}">
+    <title>Timeless Hotel</title>
 </head>
 
 <body>
