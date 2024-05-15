@@ -134,7 +134,8 @@
 
                                     <table class="table" style="width: 100%">
                                         @php
-                                            $subtotal = $room->price * $nights * $book_data['number_of_rooms'];
+
+                                            $subtotal = $priceDetails['total_price'];
                                             $discount = ($room->discount / 100) * $subtotal;
                                         @endphp
 

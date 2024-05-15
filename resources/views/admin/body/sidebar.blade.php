@@ -205,7 +205,7 @@
         <li class="menu-label">Others</li>
 
         <li>
-            <a href="https://themeforest.net/user/codervent" target="_blank">
+            <a href="https://armenisnick.gr" target="_blank">
                 <div class="parent-icon"><i class="bx bx-support"></i>
                 </div>
                 <div class="menu-title">Support</div>

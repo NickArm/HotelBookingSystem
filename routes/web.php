@@ -84,6 +84,11 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::post('/update/roomno/{id}', 'UpdateRoomNumber')->name('update.roomno');
         Route::get('/delete/roomno/{id}', 'DeleteRoomNumber')->name('delete.roomno');
         Route::get('/delete/room/{id}', 'DeleteRoom')->name('delete.room');
+
+        Route::post('/store-room-price/{id}', 'StoreRoomPrice')->name('store.room.price');
+        Route::get('/delete-room-price/{id}', 'DeleteRoomPrice')->name('delete.room.price');
+        Route::post('/room/{id}/add-price', 'addPrice')->name('add.room.price');
+        Route::get('/room/price/{priceId}/delete', 'deletePrice')->name('delete.room.price');
     });
 
     Route::controller(BookingController::class)->group(function () {

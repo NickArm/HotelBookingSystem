@@ -76,7 +76,7 @@
                                     </div>
 
                                     <input type="hidden" id="total_adult" value="{{ $roomdetails->total_adult }}">
-                                    <input type="hidden" id="room_price" value="{{ $roomdetails->price }}">
+                                    <input type="hidden" id="room_price" value="{{ $priceDetails['total_price'] }}">
                                     <input type="hidden" id="discount_p" value="{{ $roomdetails->discount }}">
 
                                     <div class="col-lg-12">
@@ -104,6 +104,16 @@
                                                         <p> SubTotal</p>
                                                     </td>
                                                     <td style="text-align: right"><span class="t_subtotal">0</span> </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-size: smaller;"">
+                                                        <strong>Price Breakdown:</strong>
+                                                        <div id="price-breakdown">
+                                                            @foreach ($priceDetails['daily_prices'] as $date => $price)
+                                                                <div>{{ $date }}: ${{ $price }}</div>
+                                                            @endforeach
+                                                        </div>
+                                                    </td>
                                                 </tr>
 
                                                 <tr>
@@ -396,7 +406,8 @@
             var discount_p = $("#discount_p").val();
             var select_room = $("#select_room").val();
 
-            var sub_total = room_price * total_nights * parseInt(select_room);
+            {{-- var sub_total = room_price * total_nights * parseInt(select_room); --}}
+            var sub_total = room_price;
 
             var discount_price = (parseInt(discount_p) / 100) * sub_total;
 

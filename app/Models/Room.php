@@ -20,4 +20,9 @@ class Room extends Model
     {
         return $this->hasMany(RoomNumber::class, 'rooms_id')->where('status', 'Active');
     }
+
+    public function prices()
+    {
+        return $this->hasMany(RoomPrice::class);
+    }
 }

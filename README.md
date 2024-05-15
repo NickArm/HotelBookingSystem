@@ -60,6 +60,7 @@ A comprehensive Hotel Booking Reservation System, designed from A-Z, offering se
 * Import and Export From Excel File - https://github.com/NickArm/HotelBookingSystem/commit/b05a1406d4ef51eaa128bf30ff60ce7bffd0a2a7
 * Booking Report System
 * Advance Room Search Option
+* Pricing per date period
 * Online Booking Reservation
 * Room Availability Management
 * Search Room Reservation by Date 

@@ -11,6 +11,7 @@ use App\Models\RoomBookDate;
 use App\Models\RoomNumber;
 use App\Models\User;
 use App\Notifications\BookingComplete;
+use App\Traits\PriceCalculationTrait;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -23,6 +24,8 @@ use Stripe;
 
 class BookingController extends Controller
 {
+    use PriceCalculationTrait;
+
     public function Checkout()
     {
         if (Session::has('book_date')) {
@@ -31,8 +34,9 @@ class BookingController extends Controller
             $fromDate = Carbon::parse($book_data['check_in']);
             $toDate = Carbon::parse($book_data['check_out']);
             $nights = $toDate->diffInDays($fromDate);
+            $priceDetails = $this->calculatePriceDetails($book_data['room_id'], $book_data['check_in'], $book_data['check_out']);
 
-            return view('frontend.checkout.checkout', compact('book_data', 'room', 'nights'));
+            return view('frontend.checkout.checkout', compact('book_data', 'room', 'nights', 'priceDetails'));
         } else {
             $notification = [
                 'message' => 'Something went wrong!',
@@ -100,7 +104,9 @@ class BookingController extends Controller
         $total_nights = $toDate->diffInDays($fromDate);
 
         $room = Room::find($book_data['room_id']);
-        $subtotal = $room->price * $total_nights * $book_data['number_of_rooms'];
+
+        $prices = $this->calculatePriceDetails($book_data['room_id'], $book_data['check_in'], $book_data['check_out']);
+        $subtotal = $prices['total_price'];
         $discount = ($room->discount / 100) * $subtotal;
         $total_price = $subtotal - $discount;
         $code = rand(00000000, 999999999);
@@ -197,8 +203,9 @@ class BookingController extends Controller
     {
 
         $editData = Booking::with('room')->find($id);
+        $room_prices_data = $this->calculatePriceDetails($editData->room_id, $editData->check_in, $editData->check_out);
 
-        return view('backend.booking.edit_booking', compact('editData'));
+        return view('backend.booking.edit_booking', compact('editData', 'room_prices_data'));
 
     }
 

@@ -8,12 +8,15 @@ use App\Models\Facility;
 use App\Models\MultiImage;
 use App\Models\Room;
 use App\Models\RoomBookDate;
+use App\Traits\PriceCalculationTrait;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 
 class FrontendRoomController extends Controller
 {
+    use PriceCalculationTrait;
+
     public function AllFrontendRoomList()
     {
 
@@ -64,18 +67,36 @@ class FrontendRoomController extends Controller
 
     }// End Method
 
+    // public function SearchRoomDetails(Request $request, $id)
+    // {
+    //     $request->flash();
+    //     $roomdetails = Room::find($id);
+    //     $multiImage = MultiImage::where('rooms_id', $id)->get();
+    //     $facility = Facility::where('rooms_id', $id)->get();
+
+    //     $otherRooms = Room::where('id', '!=', $id)->orderBy('id', 'DESC')->limit(2)->get();
+    //     $room_id = $id;
+
+    //     return view('frontend.room.search_room_details', compact('roomdetails', 'multiImage', 'facility', 'otherRooms', 'room_id'));
+
+    // }
+
     public function SearchRoomDetails(Request $request, $id)
     {
         $request->flash();
-        $roomdetails = Room::find($id);
+
+        $roomdetails = Room::with(['prices'])->find($id);
         $multiImage = MultiImage::where('rooms_id', $id)->get();
         $facility = Facility::where('rooms_id', $id)->get();
-
         $otherRooms = Room::where('id', '!=', $id)->orderBy('id', 'DESC')->limit(2)->get();
         $room_id = $id;
 
-        return view('frontend.room.search_room_details', compact('roomdetails', 'multiImage', 'facility', 'otherRooms', 'room_id'));
+        $checkIn = session('_old_input.check_in');
+        $checkOut = session('_old_input.check_out');
 
+        $priceDetails = $this->calculatePriceDetails($id, $checkIn, $checkOut);
+
+        return view('frontend.room.search_room_details', compact('roomdetails', 'multiImage', 'facility', 'otherRooms', 'room_id', 'priceDetails'));
     }
 
     public function CheckRoomAvailability(Request $request)

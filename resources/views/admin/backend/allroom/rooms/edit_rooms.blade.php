@@ -34,6 +34,16 @@
                                         </div>
                                     </a>
                                 </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#roomPrices" role="tab"
+                                        aria-selected="false">
+                                        <div class="d-flex align-items-center">
+                                            <div class="tab-icon"><i class="bx bx-dollar font-18 me-1"></i></div>
+                                            <div class="tab-title">Room Prices</div>
+                                        </div>
+                                    </a>
+                                </li>
+
 
                             </ul>
                             <div class="tab-content py-3">
@@ -425,6 +435,63 @@
                                 </div>
                                 {{-- // end PrimaryProfile --}}
 
+                                <div class="tab-pane fade" id="roomPrices" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4>Add Room Price</h4>
+                                            <form action="{{ route('store.room.price', $editData->id) }}" method="post">
+                                                @csrf
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label for="priceStartDate">Start Date</label>
+                                                        <input type="date" name="start_date" class="form-control"
+                                                            id="priceStartDate">
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="priceEndDate">End Date</label>
+                                                        <input type="date" name="end_date" class="form-control"
+                                                            id="priceEndDate">
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="price">Price</label>
+                                                        <input type="text" name="price" class="form-control"
+                                                            id="price">
+                                                    </div>
+                                                    <div class="col-md-12 mt-3">
+                                                        <button type="submit" class="btn btn-primary">Add Price</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- List existing prices -->
+                                            <div class="mt-4">
+                                                <h4>Current Prices</h4>
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Start Date</th>
+                                                            <th>End Date</th>
+                                                            <th>Price</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($roomPrices as $price)
+                                                            <tr>
+                                                                <td>{{ $price->start_date }}</td>
+                                                                <td>{{ $price->end_date }}</td>
+                                                                <td>${{ $price->price }}</td>
+                                                                <td>
+                                                                    <a href="{{ route('delete.room.price', $price->id) }}"
+                                                                        class="btn btn-danger">Delete</a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
 

@@ -7,6 +7,7 @@ use App\Models\Facility;
 use App\Models\MultiImage;
 use App\Models\Room;
 use App\Models\RoomNumber;
+use App\Models\RoomPrice;
 use App\Models\RoomType;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -15,13 +16,13 @@ class RoomController extends Controller
 {
     public function EditRoom($id)
     {
-
+        $editData = Room::with('prices')->find($id);  // Assuming 'prices' is the relationship name in the Room model
         $basic_facility = Facility::where('rooms_id', $id)->get();
         $multiimgs = MultiImage::where('rooms_id', $id)->get();
-        $editData = Room::find($id);
         $allroomNo = RoomNumber::where('rooms_id', $id)->get();
+        $roomPrices = $editData->prices;  // Fetching prices related to the room
 
-        return view('admin.backend.allroom.rooms.edit_rooms', compact('editData', 'basic_facility', 'multiimgs', 'allroomNo'));
+        return view('admin.backend.allroom.rooms.edit_rooms', compact('editData', 'basic_facility', 'multiimgs', 'allroomNo', 'roomPrices'));
     }
 
     public function UpdateRoom(Request $request, $id)
@@ -227,5 +228,24 @@ class RoomController extends Controller
 
         return redirect()->back()->with($notification);
 
+    }
+
+    public function StoreRoomPrice(Request $request, $roomId)
+    {
+        $price = new RoomPrice();
+        $price->room_id = $roomId;
+        $price->start_date = $request->start_date;
+        $price->end_date = $request->end_date;
+        $price->price = $request->price;
+        $price->save();
+
+        return back()->with('success', 'Room price added successfully.');
+    }
+
+    public function DeleteRoomPrice($priceId)
+    {
+        RoomPrice::findOrFail($priceId)->delete();
+
+        return back()->with('success', 'Room price deleted successfully.');
     }
 }
