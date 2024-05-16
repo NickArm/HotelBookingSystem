@@ -18,10 +18,6 @@ use App\Http\Controllers\Frontend\FrontendRoomController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/', [UserController::class, 'Index']);
 
 Route::get('/dashboard', function () {
@@ -222,6 +218,17 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/all/roles/permission', 'AllRolesPermission')->name('all.roles.permission');
         Route::post('/role/permission/store', 'RolePermissionStore')->name('role.permission.store');
         Route::get('/add/roles/permission', 'AddRolesPermission')->name('add.roles.permission');
+
+    });
+
+    Route::controller(AdminController::class)->group(function () {
+        Route::get('/all/admin', 'AllAdmin')->name('all.admin');
+        Route::get('/add/admin', 'AddAdmin')->name('add.admin');
+        Route::post('/store/admin', 'StoreAdmin')->name('store.admin');
+        Route::get('/edit/admin/{id}', 'EditAdmin')->name('edit.admin');
+        Route::post('/update/admin/{id}', 'UpdateAdmin')->name('update.admin');
+        Route::get('/delete/admin/{id}', 'DeleteAdmin')->name('delete.admin');
+
     });
 
 });
