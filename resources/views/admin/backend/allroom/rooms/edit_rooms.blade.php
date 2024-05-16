@@ -44,6 +44,17 @@
                                     </a>
                                 </li>
 
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#roomExtras" role="tab"
+                                        aria-selected="false">
+                                        <div class="d-flex align-items-center">
+                                            <div class="tab-icon"><i class="bx bx-gift font-18 me-1"></i></div>
+                                            <div class="tab-title">Room Extras</div>
+                                        </div>
+                                    </a>
+                                </li>
+
+
 
                             </ul>
                             <div class="tab-content py-3">
@@ -84,7 +95,8 @@
 
                                                         <img id="showImage"
                                                             src="{{ !empty($editData->image) ? url('upload/roomimg/' . $editData->image) : url('upload/no_image.jpg') }}"
-                                                            alt="Admin" class="bg-primary" width="70" height="50">
+                                                            alt="Admin" class="bg-primary" width="70"
+                                                            height="50">
                                                     </div>
 
 
@@ -341,12 +353,6 @@
                                 </div>
                                 {{-- // End primaryhome --}}
 
-
-
-
-
-
-
                                 <div class="tab-pane fade" id="primaryprofile" role="tabpanel">
                                     <div class="card">
                                         <div class="card-body">
@@ -492,9 +498,81 @@
                                         </div>
                                     </div>
                                 </div>
+                                {{-- // end Room Prices --}}
 
-
-
+                                <div class="tab-pane fade" id="roomExtras" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4>Add Room Extra</h4>
+                                            <form action="{{ route('extras.store', $editData->id) }}" method="post"
+                                                enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label for="extraTitle">Title</label>
+                                                        <input type="text" name="title" class="form-control"
+                                                            id="extraTitle" required>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="extraPrice">Price</label>
+                                                        <input type="text" name="price" class="form-control"
+                                                            id="extraPrice" required>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <label for="extraDescription">Description</label>
+                                                        <textarea name="description" class="form-control" id="extraDescription"></textarea>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <label for="extraImage">Image</label>
+                                                        <input type="file" name="image" class="form-control"
+                                                            id="extraImage">
+                                                    </div>
+                                                    <div class="col-md-12 mt-3">
+                                                        <button type="submit" class="btn btn-primary">Add Extra</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- List existing extras -->
+                                            <div class="mt-4">
+                                                <h4>Current Extras</h4>
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Title</th>
+                                                            <th>Description</th>
+                                                            <th>Price</th>
+                                                            <th>Image</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($roomExtras->extras as $extra)
+                                                            <tr>
+                                                                <td>{{ $extra->title }}</td>
+                                                                <td>{{ $extra->description }}</td>
+                                                                <td>{{ $extra->price }}</td>
+                                                                <td>
+                                                                    @if ($extra->image)
+                                                                        <img src="{{ asset('storage/' . $extra->image) }}"
+                                                                            alt="Extra Image" width="50">
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    <a href="{{ route('extras.edit', $extra->id) }}"
+                                                                        class="btn btn-warning">Edit</a>
+                                                                    <a href="{{ route('extras.delete', $extra->id) }}"
+                                                                        class="btn btn-danger"
+                                                                        onclick="return confirm('Are you sure?')">Delete</a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- // end Room Extras --}}
                             </div>
                         </div>
                     </div>

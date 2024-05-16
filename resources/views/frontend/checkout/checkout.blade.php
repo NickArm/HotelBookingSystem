@@ -161,7 +161,7 @@
                                                 <p>Subtotal</p>
                                             </td>
                                             <td style="text-align: right">
-                                                <p>${{ $subtotal }}</p>
+                                                <p>${{ $priceDetails['total_price'] }}</p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -169,15 +169,37 @@
                                                 <p>Discount</p>
                                             </td>
                                             <td style="text-align:right">
-                                                <p>${{ $discount }}</p>
+                                                <p>${{ $priceDetails['discount_amount'] }}</p>
                                             </td>
+                                        </tr>
+                                        <tr>
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Extra</th>
+                                                        <th>Quantity</th>
+                                                        <th>Price</th>
+                                                        <th>Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($extraDetails as $extra)
+                                                        <tr>
+                                                            <td>{{ $extra['title'] }}</td>
+                                                            <td>{{ $extra['quantity'] }}</td>
+                                                            <td>${{ number_format($extra['price'], 2) }}</td>
+                                                            <td>${{ number_format($extra['total_price'], 2) }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <p>Total</p>
                                             </td>
                                             <td style="text-align:right">
-                                                <p>${{ $subtotal - $discount }}</p>
+                                                <p>${{ $priceDetails['final_price_with_extras'] }}</p>
                                             </td>
                                         </tr>
                                     </table>

@@ -11,6 +11,11 @@ class Booking extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'selected_extras' => 'array',
+        'pricing_data' => 'array',
+    ];
+
     public function assign_rooms()
     {
         return $this->hasMany(BookingRoomList::class, 'booking_id');

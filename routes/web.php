@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\GalleryController;
 use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\RoomController;
+use App\Http\Controllers\Backend\RoomExtraController;
 use App\Http\Controllers\Backend\RoomListController;
 use App\Http\Controllers\Backend\RoomTypeController;
 use App\Http\Controllers\Backend\SettingController;
@@ -95,6 +96,14 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/booking/list', 'BookingList')->name('booking.list');
         Route::get('/edit_booking/{id}', 'EditBooking')->name('edit_booking');
     });
+
+    Route::controller(RoomExtraController::class)->group(function () {
+        Route::post('/rooms/{roomId}/extras', 'store')->name('extras.store');
+        Route::get('/extras/{extraId}/edit', 'edit')->name('extras.edit');
+        Route::post('/extras/{extraId}/update', 'update')->name('extras.update');
+        Route::delete('/extras/{extraId}', 'destroy')->name('extras.delete');
+
+    });
 });
 
 Route::controller(FrontendRoomController::class)->group(function () {
@@ -104,6 +113,9 @@ Route::controller(FrontendRoomController::class)->group(function () {
     Route::get('bookings/', 'BookingSearch')->name('booking.search');
     Route::get('/search/room/details/{id}', 'SearchRoomDetails')->name('search_room_details');
     Route::get('/check_room_availability/', 'CheckRoomAvailability')->name('check_room_availability');
+
+    Route::post('/calculate-price-with-extras', 'calculatePriceWithExtras')->name('calculate_price_with_extras');
+
 });
 
 Route::middleware(['auth', 'roles:admin'])->group(function () {

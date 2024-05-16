@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zxx">
+<html lang="EN">
 
 <head>
     <!-- Required Meta Tags -->
@@ -40,6 +40,7 @@
     <!-- toastr CSS -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/custom.css') }}">
     <title>Timeless Hotel</title>
+
 </head>
 
 <body>

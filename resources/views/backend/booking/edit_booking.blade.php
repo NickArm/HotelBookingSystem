@@ -131,13 +131,14 @@
                                     <tr>
                                         <td>{{ $editData->room->type->name }}</td>
                                         <td>{{ $editData->number_of_rooms }}</td>
-                                        <td>${{ $room_prices_data['total_price'] }}</td>
+                                        <td>${{ $editData->pricing_data['final_price_with_extras'] }}</td>
                                         <td>
                                             <span class="badge bg-primary">{{ $editData->check_in }}</span> /<br>
                                             <span class="badge bg-warning text-dark">{{ $editData->check_out }}</span>
                                         </td>
-                                        <td>{{ $room_prices_data['total_nights'] }}</td>
-                                        <td>${{ $room_prices_data['total_price'] * $editData->number_of_rooms }}</td>
+                                        <td>{{ $editData->pricing_data['total_nights'] }}</td>
+                                        <td>${{ $editData->pricing_data['final_price_with_extras'] * $editData->number_of_rooms }}
+                                        </td>
 
                                     </tr>
                                 </tbody>
@@ -151,22 +152,48 @@
                                 <table class="table test_table" style="float: right" border="none">
                                     <tr>
                                         <td>Subtotal</td>
-                                        <td>${{ $room_prices_data['total_price'] * $editData->number_of_rooms }}</td>
+                                        <td>${{ $editData->pricing_data['final_price_with_extras'] }}</td>
                                     </tr>
                                     <tr>
                                         <td>Discount</td>
-                                        <td>${{ $editData->discount }}
+                                        <td>${{ $editData->pricing_data['discount_amount'] }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Grand Total</td>
-                                        <td>${{ $room_prices_data['total_price'] * $editData->number_of_rooms - $editData->discount }}
+                                        <td>${{ $editData->pricing_data['final_price_with_extras'] * $editData->number_of_rooms - $editData->discount }}
                                         </td>
                                     </tr>
                                 </table>
 
                             </div>
 
+                            <div style="clear: both"></div>
+                            <div style="margin-top: 40px; margin-bottom:20px;">
+                                @if ($editData->selected_extras)
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Quantity</th>
+                                                <th>Price</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($editData->selected_extras as $extra)
+                                                <tr>
+                                                    <td>{{ $extra['title'] }}</td>
+                                                    <td>{{ $extra['quantity'] }}</td>
+                                                    <td>${{ number_format($extra['price'], 2) }}</td>
+                                                    <td>{{ $extra['description'] }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                @endif
+
+                            </div>
 
                             <div style="clear: both"></div>
                             <div style="margin-top: 40px; margin-bottom:20px;">

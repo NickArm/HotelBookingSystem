@@ -12,6 +12,7 @@ use App\Traits\PriceCalculationTrait;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class FrontendRoomController extends Controller
 {
@@ -23,7 +24,7 @@ class FrontendRoomController extends Controller
         $rooms = Room::latest()->get();
 
         return view('frontend.room.all_rooms', compact('rooms'));
-    } // End Method
+    }
 
     public function RoomDetailsPage($id)
     {
@@ -32,10 +33,11 @@ class FrontendRoomController extends Controller
         $multiImage = MultiImage::where('rooms_id', $id)->get();
         $facility = Facility::where('rooms_id', $id)->get();
         $otherRooms = Room::where('id', '!=', $id)->orderBy('id', 'DESC')->limit(2)->get();
+        dd($roomExtras);
 
         return view('frontend.room.room_details', compact('roomdetails', 'multiImage', 'facility', 'otherRooms'));
 
-    } // End Method
+    }
 
     public function BookingSearch(Request $request)
     {
@@ -85,7 +87,7 @@ class FrontendRoomController extends Controller
     {
         $request->flash();
 
-        $roomdetails = Room::with(['prices'])->find($id);
+        $roomdetails = Room::with(['prices', 'extras'])->find($id);
         $multiImage = MultiImage::where('rooms_id', $id)->get();
         $facility = Facility::where('rooms_id', $id)->get();
         $otherRooms = Room::where('id', '!=', $id)->orderBy('id', 'DESC')->limit(2)->get();
@@ -93,8 +95,9 @@ class FrontendRoomController extends Controller
 
         $checkIn = session('_old_input.check_in');
         $checkOut = session('_old_input.check_out');
+        $selectedExtras = $request->input('extras', []);
 
-        $priceDetails = $this->calculatePriceDetails($id, $checkIn, $checkOut);
+        $priceDetails = $this->calculatePriceDetails($id, $checkIn, $checkOut, $selectedExtras);
 
         return view('frontend.room.search_room_details', compact('roomdetails', 'multiImage', 'facility', 'otherRooms', 'room_id', 'priceDetails'));
     }
@@ -126,4 +129,28 @@ class FrontendRoomController extends Controller
 
         return response()->json(['available_room' => $av_room, 'total_nights' => $nights]);
     }//
+
+    public function calculatePriceWithExtras(Request $request)
+    {
+        $room_id = $request->input('room_id');
+        $checkIn = $request->input('check_in');
+        $checkOut = $request->input('check_out');
+        $selectedExtras = $request->input('extras', []);
+
+        // Ensure the extras array is properly formatted
+        $formattedExtras = [];
+        foreach ($selectedExtras as $id => $quantity) {
+            if ($quantity > 0) {
+                $formattedExtras[$id] = (int) $quantity;
+            }
+        }
+        Log::info($formattedExtras);
+        $priceDetails = $this->calculatePriceDetails($room_id, $checkIn, $checkOut, $formattedExtras);
+
+        return response()->json([
+            'total_price' => $priceDetails['total_price'],
+            'discount_amount' => $priceDetails['discount_amount'],
+            'final_price_with_extras' => $priceDetails['final_price_with_extras'],
+        ]);
+    }
 }

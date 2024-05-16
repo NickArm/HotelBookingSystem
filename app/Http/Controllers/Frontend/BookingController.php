@@ -8,6 +8,7 @@ use App\Models\Booking;
 use App\Models\BookingRoomList;
 use App\Models\Room;
 use App\Models\RoomBookDate;
+use App\Models\RoomExtra;
 use App\Models\RoomNumber;
 use App\Models\User;
 use App\Notifications\BookingComplete;
@@ -28,15 +29,51 @@ class BookingController extends Controller
 
     public function Checkout()
     {
+
         if (Session::has('book_date')) {
             $book_data = Session::get('book_date');
             $room = Room::find($book_data['room_id']);
             $fromDate = Carbon::parse($book_data['check_in']);
             $toDate = Carbon::parse($book_data['check_out']);
             $nights = $toDate->diffInDays($fromDate);
-            $priceDetails = $this->calculatePriceDetails($book_data['room_id'], $book_data['check_in'], $book_data['check_out']);
+            $room_extras = $book_data['room_extras'] ?? [];
+            $extraDetails = [];
 
-            return view('frontend.checkout.checkout', compact('book_data', 'room', 'nights', 'priceDetails'));
+            // Load the extras' details
+            foreach ($room_extras as $extra) {
+                $extraId = $extra['extra_id'];
+                $quantity = $extra['quantity'];
+                if ($quantity > 0) {
+                    $extraData = RoomExtra::find($extraId);
+                    if ($extraData) {
+                        $extraDetails[] = [
+                            'title' => $extraData->title,
+                            'price' => $extraData->price,
+                            'quantity' => $quantity,
+                            'total_price' => $quantity * $extraData->price,
+                        ];
+                    }
+                }
+            }
+
+            $formattedExtras = [];
+
+            //format room extras to pass them in calculatePriceDetails()
+            if (isset($room_extras) && is_array($room_extras)) {
+                foreach ($room_extras as $extra) {
+                    // $extra['extra_id'] and $extra['quantity'] are assumed to exist based on your data structure
+                    $extraId = $extra['extra_id'];
+                    $quantity = $extra['quantity'];
+
+                    if ($quantity > 0) {
+                        $formattedExtras[$extraId] = (int) $quantity;
+                    }
+                }
+            }
+
+            $priceDetails = $this->calculatePriceDetails($book_data['room_id'], $book_data['check_in'], $book_data['check_out'], $formattedExtras);
+
+            return view('frontend.checkout.checkout', compact('book_data', 'room', 'nights', 'priceDetails', 'extraDetails'));
         } else {
             $notification = [
                 'message' => 'Something went wrong!',
@@ -56,6 +93,7 @@ class BookingController extends Controller
             'check_out' => 'required',
             'persion' => 'required',
             'number_of_rooms' => 'required',
+            'extras' => 'sometimes|array',
 
         ]);
 
@@ -77,6 +115,7 @@ class BookingController extends Controller
         $data['check_in'] = date('Y-m-d', strtotime($request->check_in));
         $data['check_out'] = date('Y-m-d', strtotime($request->check_out));
         $data['room_id'] = $request->room_id;
+        $data['room_extras'] = $request->extras;
 
         Session::put('book_date', $data);
 
@@ -102,10 +141,41 @@ class BookingController extends Controller
         $fromDate = Carbon::parse($book_data['check_in']);
         $toDate = Carbon::parse($book_data['check_out']);
         $total_nights = $toDate->diffInDays($fromDate);
-
         $room = Room::find($book_data['room_id']);
+        $room_extras = $book_data['room_extras'] ?? [];
 
-        $prices = $this->calculatePriceDetails($book_data['room_id'], $book_data['check_in'], $book_data['check_out']);
+        $formattedExtras = [];
+
+        // Format room extras to pass them in calculatePriceDetails()
+        if (isset($room_extras) && is_array($room_extras)) {
+            foreach ($room_extras as $extra) {
+                $extraId = $extra['extra_id'];
+                $quantity = (int) $extra['quantity']; // Cast to integer to handle data correctly
+
+                if ($quantity > 0) {
+                    $formattedExtras[$extraId] = $quantity;
+                }
+            }
+        }
+        // Format room extras to store in booking tablr
+        $storedExtras = [];
+        foreach ($room_extras as $extra) {
+            if ((int) $extra['quantity'] > 0) {  // Ensure quantity is more than zero before processing
+                $extraData = RoomExtra::find($extra['extra_id']);
+                if ($extraData) {
+                    $storedExtras[] = [
+                        'id' => $extraData->id,
+                        'title' => $extraData->title,
+                        'description' => $extraData->description,
+                        'price' => $extraData->price,
+                        'quantity' => (int) $extra['quantity'],
+                    ];
+                }
+            }
+        }
+
+        $prices = $this->calculatePriceDetails($book_data['room_id'], $book_data['check_in'], $book_data['check_out'], $formattedExtras);
+
         $subtotal = $prices['total_price'];
         $discount = ($room->discount / 100) * $subtotal;
         $total_price = $subtotal - $discount;
@@ -150,6 +220,8 @@ class BookingController extends Controller
         $data->subtotal = $subtotal;
         $data->discount = $discount;
         $data->total_price = $total_price;
+        $data->selected_extras = $storedExtras;
+        $data->pricing_data = $prices;
         $data->payment_method = $request->payment_method;
         $data->transation_id = $trasation_id;
         $data->payment_status = 0;
@@ -203,9 +275,10 @@ class BookingController extends Controller
     {
 
         $editData = Booking::with('room')->find($id);
-        $room_prices_data = $this->calculatePriceDetails($editData->room_id, $editData->check_in, $editData->check_out);
 
-        return view('backend.booking.edit_booking', compact('editData', 'room_prices_data'));
+        // $room_prices_data = $this->calculatePriceDetails($editData->room_id, $editData->check_in, $editData->check_out);
+
+        return view('backend.booking.edit_booking', compact('editData'));
 
     }
 

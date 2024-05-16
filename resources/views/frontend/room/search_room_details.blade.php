@@ -1,7 +1,7 @@
 @extends('frontend.main_master')
 @section('main')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Inner Banner -->
     <div class="inner-banner inner-bg10">
@@ -94,6 +94,30 @@
                                         <p class="available_room"></p>
                                     </div>
 
+                                    <!-- Section for Room Extras -->
+                                    <div class="col-lg-12">
+                                        <h4>Select Extras</h4>
+                                        @foreach ($roomdetails->extras as $extra)
+                                            <div class="extra-item mb-2">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <div class="mr-2">
+                                                        <label for="extras-{{ $extra->id }}">{{ $extra->title }} -
+                                                            ${{ number_format($extra->price, 2) }}</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="hidden" name="extras[{{ $extra->id }}][extra_id]"
+                                                            value="{{ $extra->id }}">
+                                                        <input type="number" id="extras-{{ $extra->id }}"
+                                                            name="extras[{{ $extra->id }}][quantity]"
+                                                            class="form-control" style="width: 70px;" min="0"
+                                                            value="0" onchange="updateExtras();">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+
+
+                                    </div>
 
                                     <div class="col-lg-12">
                                         <table class="table">
@@ -106,7 +130,7 @@
                                                     <td style="text-align: right"><span class="t_subtotal">0</span> </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="font-size: smaller;"">
+                                                    <td style="font-size: smaller;">
                                                         <strong>Price Breakdown:</strong>
                                                         <div id="price-breakdown">
                                                             @foreach ($priceDetails['daily_prices'] as $date => $price)
@@ -120,14 +144,18 @@
                                                     <td>
                                                         <p> Discount</p>
                                                     </td>
-                                                    <td style="text-align: right"><span class="t_discount">0</span></td>
+                                                    <td style="text-align: right"><span
+                                                            class="t_discount">{{ $priceDetails['discount_amount'] }}</span>
+                                                    </td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>
                                                         <p> Total</p>
                                                     </td>
-                                                    <td style="text-align: right"><span class="t_g_total">0</span></td>
+                                                    <td style="text-align: right"><span
+                                                            class="t_g_total">{{ $priceDetails['total_price_after_discount'] }}</span>
+                                                    </td>
                                                 </tr>
 
                                             </tbody>
@@ -154,7 +182,8 @@
                         <div class="room-details-slider owl-carousel owl-theme">
                             @foreach ($multiImage as $image)
                                 <div class="room-details-item">
-                                    <img src="{{ asset('upload/roomimg/multi_img/' . $image->multi_img) }}" alt="Images">
+                                    <img src="{{ asset('upload/roomimg/multi_img/' . $image->multi_img) }}"
+                                        alt="Images">
                                 </div>
                             @endforeach
 
@@ -190,23 +219,16 @@
 
                             </div>
 
-
-
-
-
-
-
                             <div class="row">
                                 <div class="col-lg-6">
-
-
 
                                     <div class="services-bar-widget">
                                         <h3 class="title">Room Details </h3>
                                         <div class="side-bar-list">
                                             <ul>
                                                 <li>
-                                                    <a href="#"> <b>Capacity : </b> {{ $roomdetails->room_capacity }}
+                                                    <a href="#"> <b>Capacity : </b>
+                                                        {{ $roomdetails->room_capacity }}
                                                         Person <i class='bx bxs-cloud-download'></i></a>
                                                 </li>
                                                 <li>
@@ -405,10 +427,7 @@
             var room_price = $("#room_price").val();
             var discount_p = $("#discount_p").val();
             var select_room = $("#select_room").val();
-
-            {{-- var sub_total = room_price * total_nights * parseInt(select_room); --}}
             var sub_total = room_price;
-
             var discount_price = (parseInt(discount_p) / 100) * sub_total;
 
             $(".t_subtotal").text(sub_total);
@@ -433,5 +452,44 @@
             }
 
         })
+    </script>
+    <script>
+        function updateExtras() {
+            var totalExtras = 0;
+            $('[id^="extras-"]').each(function() {
+                var id = $(this).attr('id').split('-')[1];
+                var price = parseFloat($(this).data('price'));
+                var quantity = parseInt($(this).val());
+                totalExtras += price * quantity;
+            });
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ route('calculate_price_with_extras') }}", // Make sure to define this route
+                type: 'POST',
+                data: {
+                    room_id: {{ $room_id }},
+                    check_in: $('#check_in').val(),
+                    check_out: $('#check_out').val(),
+                    extras: collectExtras()
+                },
+                success: function(data) {
+                    $('.t_subtotal').text(data.total_price.toFixed(2));
+                    $('.t_discount').text(data.discount_amount.toFixed(2));
+                    $('.t_g_total').text(data.final_price_with_extras.toFixed(2));
+                }
+            });
+        }
+
+        function collectExtras() {
+            var extras = {};
+            $('[id^="extras-"]').each(function() {
+                var id = $(this).attr('id').split('-')[1];
+                extras[id] = $(this).val();
+            });
+            return extras;
+        }
     </script>
 @endsection

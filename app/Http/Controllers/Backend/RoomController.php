@@ -21,8 +21,9 @@ class RoomController extends Controller
         $multiimgs = MultiImage::where('rooms_id', $id)->get();
         $allroomNo = RoomNumber::where('rooms_id', $id)->get();
         $roomPrices = $editData->prices;  // Fetching prices related to the room
+        $roomExtras = Room::with('extras')->findOrFail($id);
 
-        return view('admin.backend.allroom.rooms.edit_rooms', compact('editData', 'basic_facility', 'multiimgs', 'allroomNo', 'roomPrices'));
+        return view('admin.backend.allroom.rooms.edit_rooms', compact('editData', 'basic_facility', 'multiimgs', 'allroomNo', 'roomPrices', 'roomExtras'));
     }
 
     public function UpdateRoom(Request $request, $id)
