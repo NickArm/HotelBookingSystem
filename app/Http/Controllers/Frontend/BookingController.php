@@ -18,10 +18,10 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
-use Stripe;
 
 class BookingController extends Controller
 {
@@ -123,21 +123,14 @@ class BookingController extends Controller
 
     }
 
-    public function CheckoutStore(Request $request)
+    public function CheckoutStore($trasation_id)
     {
         $user = User::where('role', 'admin')->get();
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required',
-            'country' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-            'zip_code' => 'required',
-            'payment_method' => 'required',
-        ]);
 
+        $book_info = Session::get('book_info');
         $book_data = Session::get('book_date');
-
+        //Log::info($book_info);
+        //Log::info($book_data);
         $fromDate = Carbon::parse($book_data['check_in']);
         $toDate = Carbon::parse($book_data['check_out']);
         $total_nights = $toDate->diffInDays($fromDate);
@@ -157,7 +150,7 @@ class BookingController extends Controller
                 }
             }
         }
-        // Format room extras to store in booking tablr
+        // Format room extras to store in booking table
         $storedExtras = [];
         foreach ($room_extras as $extra) {
             if ((int) $extra['quantity'] > 0) {  // Ensure quantity is more than zero before processing
@@ -181,32 +174,6 @@ class BookingController extends Controller
         $total_price = $subtotal - $discount;
         $code = rand(00000000, 999999999);
 
-        if ($request->payment_method == 'Stripe') {
-            Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-            $s_pay = Stripe\Charge::create([
-                'amount' => $total_price * 100,
-                'currency' => 'eur',
-                'source' => $request->stripeToken,
-                'description' => 'Payment for Booking. Booking No '.$code,
-            ]);
-
-            if ($s_pay['status'] == 'succeeded') {
-                $payment_status = 1;
-                $trasation_id = $s_pay->id;
-            } else {
-                $notification = [
-                    'message' => 'Sorry Payment Failed',
-                    'alert-type' => 'error',
-                ];
-
-                return redirect('/')->with($notification);
-            }
-        } else {
-            $payment_Status = 0;
-            $trasation_id = ' ';
-
-        }
-
         //store the data @Booking
         $data = new Booking();
         $data->room_id = $room->id;
@@ -222,16 +189,16 @@ class BookingController extends Controller
         $data->total_price = $total_price;
         $data->selected_extras = $storedExtras;
         $data->pricing_data = $prices;
-        $data->payment_method = $request->payment_method;
+        $data->payment_method = $book_info['payment_method'];
         $data->transation_id = $trasation_id;
         $data->payment_status = 0;
-        $data->name = $request->name;
-        $data->email = $request->email;
-        $data->phone = $request->phone;
-        $data->address = $request->address;
-        $data->country = $request->country;
-        $data->state = $request->state;
-        $data->zip_code = $request->zip_code;
+        $data->name = $book_info['name'];
+        $data->email = $book_info['email'];
+        $data->phone = $book_info['phone'];
+        $data->address = $book_info['address'];
+        $data->country = $book_info['country'];
+        $data->state = $book_info['state'];
+        $data->zip_code = $book_info['zip_code'];
         $data->code = $code;
         $data->status = 0;
         $data->created_at = Carbon::now();
@@ -257,7 +224,7 @@ class BookingController extends Controller
             'alert-type' => 'success',
         ];
 
-        Notification::send($user, new BookingComplete($request->name));
+        Notification::send($user, new BookingComplete($book_info['name']));
 
         return redirect('/')->with($notification);
     }

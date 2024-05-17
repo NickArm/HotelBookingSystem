@@ -220,6 +220,11 @@
                                     <label for="cash-on-delivery">Cash On Delivery</label>
                                 </p>
 
+                                <p>
+                                    <input type="radio" class="pay_method" id="paypal" name="payment_method"
+                                        value="Paypal">
+                                    <label for="paypal">Paypal</label>
+                                </p>
 
                                 <p>
                                     <input type="radio" class="pay_method" id="stripe" name="payment_method"
@@ -292,12 +297,18 @@
 
             $(".pay_method").on('click', function() {
                 var payment_method = $(this).val();
-                if (payment_method == 'Stripe') {
-                    $("#stripe_pay").removeClass('d-none');
-                } else {
-                    $("#stripe_pay").addClass('d-none');
+                switch (payment_method) {
+                    case 'Stripe':
+                        $("#stripe_pay").removeClass('d-none');
+                        break;
+                    case 'Paypal':
+                        // Redirect to PayPal or show PayPal options here
+                        break;
+                    default:
+                        $("#stripe_pay").addClass('d-none');
                 }
             });
+
 
         });
 
@@ -313,7 +324,7 @@
                     return false;
                 } else if (pay_method == 'COD') {
 
-                } else {
+                } else if (pay_method == 'Stripe') {
                     document.getElementById('myButton').disabled = true;
 
                     var $form = $(".require-validation"),
@@ -347,6 +358,9 @@
                             exp_year: $('.card-expiry-year').val()
                         }, stripeResponseHandler);
                     }
+                } else if (pay_method == 'Paypal') {
+                    // For PayPal or other methods, make sure not to handle Stripe token generation
+                    return true; // proceed with the form submission
                 }
 
 

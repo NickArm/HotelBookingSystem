@@ -25,7 +25,7 @@
                             <div class="col-lg-7 col-md-8 p-0">
                                 <div class="room-card-content">
                                     <h3>
-                                        <a href="#">{{ $item['type']['name'] }}</a>
+                                        <a href="{{ route('room.details', $item->id) }}">{{ $item['type']['name'] }}</a>
                                     </h3>
                                     <span>{{ $item->price }} / Per Night </span>
                                     <div class="rating">
@@ -46,7 +46,9 @@
                                         <li><i class='bx bxs-hotel'></i>{{ $item->bed_style }}</li>
                                     </ul>
 
-                                    <a href="room-details.html" class="book-more-btn">
+
+
+                                    <a href="{{ route('room.details', $item->id) }}" class="book-more-btn">
                                         Book Now
                                     </a>
                                 </div>

@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Frontend\BookingController;
 use App\Http\Controllers\Frontend\ContactUsController;
 use App\Http\Controllers\Frontend\FrontendRoomController;
+use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -119,7 +120,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     Route::controller(BookingController::class)->group(function () {
         Route::get('/checkout/', 'Checkout')->name('checkout');
         Route::post('/booking/store/', 'BookingStore')->name('user_booking_store');
-        Route::post('/checkout/store/', 'CheckoutStore')->name('checkout.store');
+
         Route::match(['get', 'post'], '/stripe_pay', [BookingController::class, 'stripe_pay'])->name('stripe_pay');
         Route::post('/update/booking/status/{id}', 'UpdateBookingStatus')->name('update.booking.status');
         Route::post('/update/booking/{id}', 'UpdateBooking')->name('update.booking');
@@ -133,6 +134,16 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/user/invoice/{id}', 'UserInvoice')->name('user.invoice');
 
         Route::post('/mark-notification-as-read/{notification}', 'MarkAsRead');
+
+    });
+
+    Route::controller(PaymentController::class)->group(function () {
+        Route::post('/checkout/store/', 'createPayment')->name('checkout.store');
+
+        Route::get('create-transaction', 'createTransaction')->name('createTransaction');
+        Route::get('process-transaction', 'processTransaction')->name('processTransaction');
+        Route::get('success-transaction', 'successTransaction')->name('paypal.success');
+        Route::get('cancel-transaction', 'cancelTransaction')->name('paypal.cancel');
     });
 
     Route::controller(RoomListController::class)->group(function () {
