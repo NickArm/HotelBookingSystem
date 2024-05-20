@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\CommentController;
 use App\Http\Controllers\Backend\GalleryController;
+use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\RoomController;
@@ -102,6 +103,16 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::delete('/extras/{extraId}', 'destroy')->name('extras.delete');
 
     });
+
+    Route::controller(PageController::class)->group(function () {
+        Route::get('/page/list', 'index')->name('list.pages');
+        Route::post('/page/store', 'store')->name('store.page');
+        Route::get('/page/create', 'create')->name('create.page');
+        Route::get('/page/edit/{id}', 'edit')->name('edit.page');
+        Route::post('/page/update/{id}', 'update')->name('update.page');
+        Route::post('/page/destroy/{id}', 'destroy')->name('destroy.page');
+    });
+
 });
 
 Route::controller(FrontendRoomController::class)->group(function () {
@@ -239,6 +250,10 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 
     });
 
+});
+
+Route::controller(PageController::class)->group(function () {
+    Route::get('/page/{slug}', 'PageDetails');
 });
 
 Route::controller(BlogController::class)->group(function () {

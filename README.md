@@ -53,6 +53,7 @@ A comprehensive Hotel Booking Reservation System, designed from A-Z, offering se
 * User Roles and Permission - https://github.com/NickArm/HotelBookingSystem/commit/dd7e8eec6e4f1fc8ec2d7dbddf76227eed7605a1
 * Checkout & Payments & Pay on Arrivel Method - https://github.com/NickArm/HotelBookingSystem/commit/0b65c8f0fc1be842f9c051c237225e30ac96f876
 * Stripe Payment Method - https://github.com/NickArm/HotelBookingSystem/commit/f4b02984f46b8868eb1afdd60f81b97008d2e55c
+* Paypal Payment Method - https://github.com/NickArm/HotelBookingSystem/commit/1d03867b6c9e006207c8e822a851b8b3943d4125
 * Manage Room Inventory
 * Manual Booking and Online Booking System - https://github.com/NickArm/HotelBookingSystem/commit/cf2e4bde8314ff3d3cf679abbaace2cc88fb95ac
 * Booking Notification with Real Time - https://github.com/NickArm/HotelBookingSystem/commit/916dcf9f3740d108838b4f28e3a6028d83dffe43
@@ -60,7 +61,7 @@ A comprehensive Hotel Booking Reservation System, designed from A-Z, offering se
 * Import and Export From Excel File - https://github.com/NickArm/HotelBookingSystem/commit/b05a1406d4ef51eaa128bf30ff60ce7bffd0a2a7
 * Booking Report System
 * Advance Room Search Option
-* Pricing per date period
+* Pricing per date period - https://github.com/NickArm/HotelBookingSystem/commit/9d40d17a2abd54ab2d4aee6af234ae56999cc5ec
 * Online Booking Reservation
 * Room Availability Management
 * Search Room Reservation by Date 
@@ -69,8 +70,6 @@ A comprehensive Hotel Booking Reservation System, designed from A-Z, offering se
 * Multiple Image Upload System - https://github.com/NickArm/HotelBookingSystem/commit/d8be9f93f421515783e79b2faa2e08759cfd99a9
 * Create Custom Pagination
 * Dynamic Email Configuration - https://github.com/NickArm/HotelBookingSystem/commit/4d61daef98e96920f9351e56dbfd27f97725ae01
-* Adding Professional Theme for Backend
-* Adding Professional Theme for Frontend
 * iCal Feature
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

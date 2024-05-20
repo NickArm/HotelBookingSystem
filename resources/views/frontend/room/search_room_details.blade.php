@@ -204,10 +204,6 @@
                             <p>
                                 {!! $roomdetails->description !!}
                             </p>
-
-
-
-
                             <div class="side-bar-plan">
                                 <h3>Basic Plan Facilities</h3>
                                 <ul>
@@ -215,10 +211,7 @@
                                         <li><a href="#">{{ $fac->facility_name }}</a></li>
                                     @endforeach
                                 </ul>
-
-
                             </div>
-
                             <div class="row">
                                 <div class="col-lg-6">
 
@@ -235,19 +228,10 @@
                                                     <a href="#"> <b>Size : </b> {{ $roomdetails->size }}ft2 <i
                                                             class='bx bxs-cloud-download'></i></a>
                                                 </li>
-
-
                                             </ul>
                                         </div>
                                     </div>
-
-
-
-
                                 </div>
-
-
-
                                 <div class="col-lg-6">
                                     <div class="services-bar-widget">
                                         <h3 class="title">Room Details </h3>
@@ -273,7 +257,7 @@
 
                         </div>
 
-                        <div class="room-details-review">
+                        {{-- <div class="room-details-review">
                             <h2>Clients Review and Retting's</h2>
                             <div class="review-ratting">
                                 <h3>Your retting: </h3>
@@ -299,7 +283,7 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
